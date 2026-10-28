@@ -87,7 +87,7 @@ The project uses `uv` for ultra-fast dependency and virtual environment manageme
 
 ```bash
 # Clone the repository and install dependencies
-git clone https://github.com/PavelCharheika/dqn-exploration-strategies.git
+git clone https://github.com/Pavelpuff/dqn-exploration-strategies.git
 cd dqn-exploration-strategies
 make setup
 

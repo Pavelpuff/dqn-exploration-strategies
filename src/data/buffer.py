@@ -5,7 +5,9 @@ import torch
 class ReplayBuffer:
     """Experience Replay Buffer for storing and sampling transitions."""
 
-    def __init__(self, buffer_size: int, n_seeds: int, state_dim: int, batch_size: int, device: torch.device) -> None:
+    def __init__(
+        self, buffer_size: int, n_seeds: int, state_dim: int, batch_size: int, device: torch.device
+    ) -> None:
         self.buffer_size = buffer_size
         self.n_seeds = n_seeds
         self.state_dim = state_dim
@@ -21,8 +23,14 @@ class ReplayBuffer:
         self.idx = 0
         self.current_size = 0
 
-    def add(self, state: np.ndarray, action: np.ndarray, reward: np.ndarray, next_state: np.ndarray,
-            terminal: np.ndarray) -> None:
+    def add(
+        self,
+        state: np.ndarray,
+        action: np.ndarray,
+        reward: np.ndarray,
+        next_state: np.ndarray,
+        terminal: np.ndarray,
+    ) -> None:
         if self.current_size < self.buffer_size:
             self.current_size += 1
 
@@ -35,7 +43,7 @@ class ReplayBuffer:
         self.idx = (self.idx + 1) % self.buffer_size
 
     def sample(self) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-        sample_idxs = np.random.permutation(self.current_size)[:self.batch_size]
+        sample_idxs = np.random.permutation(self.current_size)[: self.batch_size]
 
         states = torch.from_numpy(self.states[sample_idxs]).to(self.device)
         actions = torch.from_numpy(self.actions[sample_idxs]).to(self.device)
